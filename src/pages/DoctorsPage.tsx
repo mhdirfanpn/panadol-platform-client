@@ -45,8 +45,9 @@ const DoctorsPage = () => {
       const data = await doctorService.getAllDoctors();
       setDoctors(data);
       setFilteredDoctors(data);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load doctors');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to load doctors');
       console.error('Error fetching doctors:', err);
     } finally {
       setLoading(false);

@@ -45,8 +45,9 @@ const UsersPage = () => {
       const data = await userService.getAllUsers();
       setUsers(data);
       setFilteredUsers(data);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load users');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to load users');
       console.error('Error fetching users:', err);
     } finally {
       setLoading(false);

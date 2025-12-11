@@ -82,8 +82,9 @@ const OnboardDoctorModal = ({ open, onClose, onSubmit }: OnboardDoctorModalProps
         consultationFee: 0,
       });
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to onboard doctor');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to onboard doctor');
     } finally {
       setLoading(false);
     }
