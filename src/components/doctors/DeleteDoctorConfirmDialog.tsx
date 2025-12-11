@@ -33,8 +33,9 @@ const DeleteDoctorConfirmDialog = ({ open, doctor, onClose, onConfirm }: DeleteD
       setError(null);
       await onConfirm(doctor.id);
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to delete doctor');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to delete doctor');
     } finally {
       setLoading(false);
     }

@@ -26,24 +26,30 @@ interface ViewDoctorModalProps {
   onClose: () => void;
 }
 
+interface InfoRowProps {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}
+
+const InfoRow = ({ icon, label, value }: InfoRowProps) => (
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 1.5 }}>
+    <Box sx={{ color: '#64748b', display: 'flex', alignItems: 'center' }}>
+      {icon}
+    </Box>
+    <Box sx={{ flex: 1 }}>
+      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+        {label}
+      </Typography>
+      <Typography variant="body1" fontWeight={500}>
+        {value}
+      </Typography>
+    </Box>
+  </Box>
+);
+
 const ViewDoctorModal = ({ open, doctor, onClose }: ViewDoctorModalProps) => {
   if (!doctor) return null;
-
-  const InfoRow = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) => (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 1.5 }}>
-      <Box sx={{ color: '#64748b', display: 'flex', alignItems: 'center' }}>
-        {icon}
-      </Box>
-      <Box sx={{ flex: 1 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-          {label}
-        </Typography>
-        <Typography variant="body1" fontWeight={500}>
-          {value}
-        </Typography>
-      </Box>
-    </Box>
-  );
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>

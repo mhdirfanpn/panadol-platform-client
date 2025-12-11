@@ -35,8 +35,9 @@ const UpdateStatusModal = ({ open, user, onClose, onSubmit }: UpdateStatusModalP
       setError(null);
       await onSubmit(user.id, status);
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to update status');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to update status');
     } finally {
       setLoading(false);
     }

@@ -68,8 +68,9 @@ const CreateUserModal = ({ open, onClose, onSubmit }: CreateUserModalProps) => {
         role: UserRole.PATIENT,
       });
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create user');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to create user');
     } finally {
       setLoading(false);
     }

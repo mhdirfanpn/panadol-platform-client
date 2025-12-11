@@ -32,8 +32,9 @@ const DeleteConfirmDialog = ({ open, user, onClose, onConfirm }: DeleteConfirmDi
       setError(null);
       await onConfirm(user.id);
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to delete user');
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Failed to delete user');
     } finally {
       setLoading(false);
     }
